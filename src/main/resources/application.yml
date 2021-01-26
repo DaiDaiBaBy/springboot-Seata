@@ -1,0 +1,49 @@
+server:
+  port: 18080
+
+seata:
+  application-id: springboot-seata
+  config:
+    type: file
+  registry:
+    type: file
+  service:
+    grouplist:
+      default:  127.0.0.1:8091
+    vgroup-mapping:
+      springboot-seata-group: default
+      # seata 事务组编号 用于TC集群名
+  tx-service-group: springboot-seata-group
+
+spring:
+  application:
+    name: springboot-Seata
+  datasource:
+    dynamic:
+      datasource:
+      # 设置  账号数据源配置
+        account-ds:
+          driver-class-name:  com.mysql.cj.jdbc.Driver
+          url:  jdbc:mysql://127.0.0.1:3306/accountdb?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useSSL=false
+          username: root
+          password: '!QAZ1qaz'
+          # 设置 订单数据源配置
+        order-ds:
+          driver-class-name:  com.mysql.cj.jdbc.Driver
+          url:  jdbc:mysql://127.0.0.1:3306/orderdb?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useSSL=false
+          username: root
+          password: '!QAZ1qaz'
+          # 设置 商品数据源配置
+        product-ds:
+          driver-class-name:  com.mysql.cj.jdbc.Driver
+          url:  jdbc:mysql://127.0.0.1:3306/productdb?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useSSL=false
+          username: root
+          password: '!QAZ1qaz'
+          # 设置默认数据源或者数据源组 默认值即为master
+      primary: order-ds   # 默认 指定一个数据源
+      # 开启对 seata的支持
+      seata: true
+
+
+
+
